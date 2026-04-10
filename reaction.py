@@ -5,26 +5,27 @@ from random import uniform
 left_score=0
 right_score=0
 
+led_off_time=0
+
 led=LED(4)
 right_button=Button(15)
 left_button=Button(14)
 
 left_name=input('left player name is ')
 right_name=input('right player name is ')
+
 game_over = False
 
-led_on_time=0
-
 def pressed(button):
-	global game_over,left_score,right_score,led_on_time
+	global game_over,left_score,right_score,led_off_time
 	if game_over:
 		return
-	reaction_ms=(time() - led_on_time)*1000
+	reaction_ms=(time() - led_off_time)*1000
 	if button.pin.number==14:
 		left_score+=1
 		print(left_name+' won the game')
 		print(f"reaction time:{reaction_ms:.1f} ms")
-		print(f"{left_name}:{right_name}={left_score}:{right_score}")
+		print(f"{left_name}:{right_name} = {left_score}:{right_score}")
 	else:
 		right_score+=1
 		print(right_name+' won the game')
@@ -39,8 +40,10 @@ left_button.when_pressed=pressed
 while True:
 	game_over = False
 	led.on()
-	led_on_time=time()
-	print("LED turned on!Press your button FAST!")
+	sleep(uniform(5,10))
+	led.off()
+	led_off_time=time()
+	print("LED turned off!Press your button FAST!")
 
 	sleep(uniform(5,10))
 	led.off()
