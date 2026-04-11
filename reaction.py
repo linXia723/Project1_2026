@@ -30,7 +30,7 @@ def pressed(button):
 		right_score+=1
 		print(right_name+' won the game')
 		print(f"reaction time:{reaction_ms:.1f} ms")
-		print(f"{left_name}:{right_name}={left_score}={left_score}:{right_score}")
+		print(f"{left_name}:{right_name}={left_score}:{right_score}")
 	game_over = True
 
 right_button.when_pressed=pressed
